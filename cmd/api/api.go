@@ -24,6 +24,8 @@ func (app *application) mount() http.Handler {
 	router.Use(middleware.Logger)
 	router.Use(middleware.Recoverer)
 
+	router.Use(middleware.Timeout(60 * time.Second))
+
 	router.Route("/v1", func(r chi.Router) {
 		router.Get("/health", app.healthCheckHandler)
 	})
